@@ -5,6 +5,9 @@
 A Russian and English prose linter for formulaic wording. Rules live in YAML; findings
 include source positions and editing suggestions. All text processing runs locally.
 
+Project website: [elyosten.github.io/slop-lint](https://elyosten.github.io/slop-lint/).
+The interactive browser demo is still planned.
+
 **Development preview:** CLI and core work locally. The package is not published to npm.
 There are five starter rules per language; corpus review and the full v0.1 pack are pending.
 The existing unscoped npm package `slop-lint` belongs to a different project.

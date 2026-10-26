@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="slop-lint is a local prose linter for Russian and English, with YAML rules and a TypeScript CLI.">
+  <meta name="google-site-verification" content="qsD_8RywlCTfUsVTmS9OKHhYhLbn4EH9sMDFHAySSdU">
+  <title>slop-lint — a prose linter for Russian and English</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #202b27; background: #f5f4ee; }
+    body { margin: 0; }
+    main { max-width: 720px; margin: auto; padding: 72px 24px; }
+    .label { color: #51675b; font: 14px ui-monospace, monospace; }
+    h1 { font-size: clamp(48px, 10vw, 84px); letter-spacing: -.06em; margin: 24px 0; line-height: 1; }
+    h2 { margin-top: 40px; font-size: 22px; }
+    p, li { font-size: 18px; line-height: 1.65; }
+    a { color: #24583e; text-underline-offset: 4px; }
+    a:focus-visible { outline: 3px solid #24583e; outline-offset: 5px; }
+    pre { overflow-x: auto; padding: 20px; background: #e6ebe3; border-left: 3px solid #24583e; line-height: 1.6; }
+    code { font-family: ui-monospace, monospace; }
+    footer { border-top: 1px solid #cbd1c7; margin-top: 48px; padding-top: 20px; }
+    footer p { font-size: 14px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p class="label">OPEN SOURCE / DEVELOPMENT PREVIEW</p>
+    <h1>slop-lint</h1>
+    <p>A prose linter for Russian and English. Find formulaic wording, see its position in the text, and get a concrete editing suggestion.</p>
+    <p><a href="https://github.com/elyosten/slop-lint">Source code and setup instructions</a></p>
+    <h2>Check text locally</h2>
+    <pre><code>npm ci
+npm run build
+node dist/cli/index.js --lang all article.md</code></pre>
+    <p>Run these commands from a local checkout. The CLI and TypeScript core are available now, with five starter rules per language. The npm package and interactive browser demo are still in development.</p>
+    <p>Processing runs on your computer. Findings are editing suggestions and do not establish who wrote a text.</p>
+    <section lang="ru" aria-labelledby="russian">
+      <h2 id="russian">По-русски</h2>
+      <p>slop-lint находит шаблонные обороты в русских и английских текстах и предлагает правки. Сейчас доступны ядро и CLI. Инструкции запуска и план развития — в репозитории.</p>
+    </section>
+    <footer><p>MIT License · <a href="https://github.com/elyosten/slop-lint/blob/main/docs/ROADMAP.md">Project roadmap</a></p></footer>
+  </main>
+</body>
+</html>
