@@ -5,40 +5,218 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="slop-lint is a local prose linter for Russian and English, with YAML rules and a TypeScript CLI.">
   <meta name="google-site-verification" content="qsD_8RywlCTfUsVTmS9OKHhYhLbn4EH9sMDFHAySSdU">
+  <meta name="theme-color" content="#0f1412">
   <title>slop-lint — a prose linter for Russian and English</title>
   <style>
-    :root { color-scheme: light; font-family: system-ui, sans-serif; color: #202b27; background: #f5f4ee; }
+    :root {
+      color-scheme: dark;
+      --bg: #0f1412;
+      --surface: #171e1b;
+      --border: #2a3530;
+      --text: #e8ece9;
+      --muted: #a3b0a9;
+      --accent: #b8f27c;
+      --accent-ink: #0f1412;
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--bg);
+    }
+    * { box-sizing: border-box; }
     body { margin: 0; }
-    main { max-width: 720px; margin: auto; padding: 72px 24px; }
-    .label { color: #51675b; font: 14px ui-monospace, monospace; }
-    h1 { font-size: clamp(48px, 10vw, 84px); letter-spacing: -.06em; margin: 24px 0; line-height: 1; }
-    h2 { margin-top: 40px; font-size: 22px; }
-    p, li { font-size: 18px; line-height: 1.65; }
-    a { color: #24583e; text-underline-offset: 4px; }
-    a:focus-visible { outline: 3px solid #24583e; outline-offset: 5px; }
-    pre { overflow-x: auto; padding: 20px; background: #e6ebe3; border-left: 3px solid #24583e; line-height: 1.6; }
-    code { font-family: ui-monospace, monospace; }
-    footer { border-top: 1px solid #cbd1c7; margin-top: 48px; padding-top: 20px; }
-    footer p { font-size: 14px; }
+
+    /* Skip link for keyboard users */
+    .skip {
+      position: absolute; left: 16px; top: -48px;
+      padding: 8px 14px; background: var(--accent); color: var(--accent-ink);
+      border-radius: 6px; font-weight: 600; text-decoration: none;
+    }
+    .skip:focus { top: 16px; }
+
+    a { color: var(--accent); text-underline-offset: 4px; }
+    a:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
+
+    .wrap { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    header .wrap {
+      display: flex; justify-content: space-between; align-items: center;
+      padding-top: 24px; padding-bottom: 24px;
+    }
+    .logo { font: 600 16px ui-monospace, monospace; color: var(--text); text-decoration: none; }
+    .logo span { color: var(--accent); }
+    nav ul { display: flex; gap: 24px; list-style: none; margin: 0; padding: 0; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 15px; }
+    nav a:hover { color: var(--text); }
+
+    .hero { padding: 72px 0 56px; }
+    .badge {
+      display: inline-block; padding: 6px 12px;
+      border: 1px solid var(--border); border-radius: 999px;
+      color: var(--muted); font: 13px ui-monospace, monospace; letter-spacing: .04em;
+    }
+    .badge::before { content: "● "; color: var(--accent); }
+    h1 {
+      font-size: clamp(52px, 11vw, 112px); line-height: .95;
+      letter-spacing: -.055em; margin: 28px 0 24px;
+    }
+    h1 em { font-style: normal; color: var(--accent); }
+    .lead { max-width: 600px; font-size: 20px; line-height: 1.6; color: var(--muted); margin: 0; }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+    .btn {
+      display: inline-flex; align-items: center; padding: 14px 22px;
+      border-radius: 10px; font-weight: 600; font-size: 16px; text-decoration: none;
+    }
+    .btn-primary { background: var(--accent); color: var(--accent-ink); }
+    .btn-primary:hover { background: #cdf7a0; }
+    .btn-ghost { border: 1px solid var(--border); color: var(--text); }
+    .btn-ghost:hover { border-color: var(--muted); }
+
+    /* Terminal block */
+    .terminal {
+      margin: 0 0 64px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 14px; overflow: hidden;
+    }
+    .terminal-bar {
+      display: flex; align-items: center; gap: 8px; padding: 12px 16px;
+      border-bottom: 1px solid var(--border); color: var(--muted);
+      font: 13px ui-monospace, monospace;
+    }
+    .dots { display: flex; gap: 6px; margin-right: 8px; }
+    .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--border); }
+    pre { margin: 0; padding: 24px; overflow-x: auto; line-height: 1.8; font-size: 15px; }
+    code { font-family: ui-monospace, "SF Mono", Menlo, monospace; }
+    .prompt { color: var(--accent); user-select: none; }
+
+    h2 { font-size: 28px; letter-spacing: -.02em; margin: 0 0 24px; }
+
+    .grid {
+      display: grid; gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      margin-bottom: 64px;
+    }
+    .card {
+      padding: 24px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 14px;
+    }
+    .card h3 { margin: 0 0 8px; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); line-height: 1.6; font-size: 16px; }
+
+    .status {
+      display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      padding: 28px; margin-bottom: 64px;
+      border: 1px dashed var(--border); border-radius: 14px;
+    }
+    .status h3 { margin: 0 0 10px; font: 600 13px ui-monospace, monospace; letter-spacing: .06em; color: var(--muted); }
+    .status ul { margin: 0; padding-left: 20px; line-height: 1.8; }
+    .status .ready li::marker { content: "✓  "; color: var(--accent); }
+    .status .next li::marker { content: "○  "; color: var(--muted); }
+
+    .ru {
+      padding: 32px; margin-bottom: 64px;
+      background: linear-gradient(135deg, #1a2420, var(--surface));
+      border: 1px solid var(--border); border-radius: 14px;
+    }
+    .ru p { margin: 0; font-size: 18px; line-height: 1.7; color: var(--muted); }
+
+    footer { border-top: 1px solid var(--border); }
+    footer .wrap {
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px;
+      padding-top: 24px; padding-bottom: 40px; font-size: 14px; color: var(--muted);
+    }
+    footer p { margin: 0; }
+
+    @media (max-width: 560px) {
+      nav ul { gap: 16px; }
+      .hero { padding-top: 48px; }
+    }
   </style>
 </head>
 <body>
-  <main>
-    <p class="label">OPEN SOURCE / DEVELOPMENT PREVIEW</p>
-    <h1>slop-lint</h1>
-    <p>A prose linter for Russian and English. Find formulaic wording, see its position in the text, and get a concrete editing suggestion.</p>
-    <p><a href="https://github.com/elyosten/slop-lint">Source code and setup instructions</a></p>
-    <h2>Check text locally</h2>
-    <pre><code>npm ci
-npm run build
-node dist/cli/index.js --lang all article.md</code></pre>
-    <p>Run these commands from a local checkout. The CLI and TypeScript core are available now, with five starter rules per language. The npm package and interactive browser demo are still in development.</p>
-    <p>Processing runs on your computer. Findings are editing suggestions and do not establish who wrote a text.</p>
-    <section lang="ru" aria-labelledby="russian">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header>
+    <div class="wrap">
+      <a class="logo" href="./"><span>$</span> slop-lint</a>
+      <nav aria-label="Primary">
+        <ul>
+          <li><a href="#start">Get started</a></li>
+          <li><a href="https://github.com/elyosten/slop-lint/blob/main/docs/ROADMAP.md">Roadmap</a></li>
+          <li><a href="https://github.com/elyosten/slop-lint">GitHub</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="title">
+      <span class="badge">OPEN SOURCE · DEVELOPMENT PREVIEW</span>
+      <h1 id="title">slop<em>-</em>lint</h1>
+      <p class="lead">A prose linter for Russian and English. Find formulaic wording, see its position in the text, and get a concrete editing suggestion.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="https://github.com/elyosten/slop-lint">Source code and setup</a>
+        <a class="btn btn-ghost" href="#start">Check text locally</a>
+      </div>
+    </section>
+
+    <section id="start" aria-labelledby="start-title">
+      <h2 id="start-title">Check text locally</h2>
+      <div class="terminal">
+        <div class="terminal-bar" aria-hidden="true">
+          <span class="dots"><i></i><i></i><i></i></span>local checkout
+        </div>
+        <pre><code><span class="prompt">$ </span>npm ci
+<span class="prompt">$ </span>npm run build
+<span class="prompt">$ </span>node dist/cli/index.js --lang all article.md</code></pre>
+      </div>
+    </section>
+
+    <section aria-labelledby="why-title">
+      <h2 id="why-title">What it does</h2>
+      <div class="grid">
+        <article class="card">
+          <h3>Runs on your machine</h3>
+          <p>Processing stays on your computer. Nothing is sent anywhere.</p>
+        </article>
+        <article class="card">
+          <h3>Russian and English</h3>
+          <p>YAML rules with a TypeScript core and CLI. Five starter rules per language.</p>
+        </article>
+        <article class="card">
+          <h3>Suggestions, not verdicts</h3>
+          <p>Findings are editing suggestions and do not establish who wrote a text.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="status" aria-label="Project status">
+      <div class="ready">
+        <h3>AVAILABLE NOW</h3>
+        <ul>
+          <li>TypeScript core</li>
+          <li>CLI</li>
+          <li>5 starter rules per language</li>
+        </ul>
+      </div>
+      <div class="next">
+        <h3>IN DEVELOPMENT</h3>
+        <ul>
+          <li>npm package</li>
+          <li>Interactive browser demo</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="ru" lang="ru" aria-labelledby="russian">
       <h2 id="russian">По-русски</h2>
       <p>slop-lint находит шаблонные обороты в русских и английских текстах и предлагает правки. Сейчас доступны ядро и CLI. Инструкции запуска и план развития — в репозитории.</p>
     </section>
-    <footer><p>MIT License · <a href="https://github.com/elyosten/slop-lint/blob/main/docs/ROADMAP.md">Project roadmap</a></p></footer>
   </main>
+
+  <footer>
+    <div class="wrap">
+      <p>MIT License</p>
+      <p><a href="https://github.com/elyosten/slop-lint/blob/main/docs/ROADMAP.md">Project roadmap</a> · <a href="https://github.com/elyosten/slop-lint">GitHub</a></p>
+    </div>
+  </footer>
 </body>
 </html>
