@@ -1,0 +1,25 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "slop-lint rule pack",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": ["id", "lang", "type", "pattern", "severity", "message", "suggest", "tags", "examples"],
+    "properties": {
+      "id": { "type": "string", "pattern": "^[a-z]{2}-[a-z0-9-]+$" },
+      "lang": { "enum": ["ru", "en", "kk"] },
+      "type": { "enum": ["phrase", "regex"] },
+      "pattern": { "type": "string", "minLength": 1 },
+      "severity": { "enum": ["info", "warn", "error"] },
+      "message": { "type": "string", "minLength": 1 },
+      "suggest": { "type": "string", "minLength": 1 },
+      "tags": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+      "disabled_by_default": { "type": "boolean", "default": false },
+      "examples": {
+        "type": "object", "additionalProperties": false, "required": ["bad", "good"],
+        "properties": { "bad": { "type": "string", "minLength": 1 }, "good": { "type": "string", "minLength": 1 } }
+      }
+    }
+  }
+}

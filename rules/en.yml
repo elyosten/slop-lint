@@ -1,0 +1,55 @@
+- id: en-001
+  lang: en
+  type: phrase
+  pattern: it is important to note that
+  severity: warn
+  message: The opening delays the actual point.
+  suggest: Start with the fact itself.
+  tags: [filler]
+  examples:
+    bad: It is important to note that the build is faster.
+    good: The build is twice as fast.
+- id: en-002
+  lang: en
+  type: phrase
+  pattern: it is worth noting that
+  severity: warn
+  message: The introduction does not explain why the fact matters.
+  suggest: State the fact and explain its relevance if needed.
+  tags: [filler]
+  examples:
+    bad: It is worth noting that the API has changed.
+    good: The API now requires a version header.
+- id: en-003
+  lang: en
+  type: phrase
+  pattern: in today's fast-paced world
+  severity: warn
+  message: Generic opening without a specific context.
+  suggest: Name the change that affects your reader.
+  tags: [opening]
+  examples:
+    bad: In today's fast-paced world, teams need tools.
+    good: Our team runs 40 builds per day.
+- id: en-004
+  lang: en
+  type: phrase
+  pattern: in the ever-evolving landscape
+  severity: warn
+  message: Generic scene-setting obscures the subject.
+  suggest: Name the field and the concrete change.
+  tags: [opening]
+  examples:
+    bad: In the ever-evolving landscape of software, speed matters.
+    good: Reducing build time saves our team two hours a week.
+- id: en-005
+  lang: en
+  type: phrase
+  pattern: unlock a world of possibilities
+  severity: info
+  message: The promise does not name any capabilities.
+  suggest: List a concrete task the reader can now perform.
+  tags: [vague]
+  examples:
+    bad: These tools unlock a world of possibilities.
+    good: These tools find broken links before deployment.
