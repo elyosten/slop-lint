@@ -6,7 +6,9 @@ A Russian and English prose linter for formulaic wording. Rules live in YAML; fi
 include source positions and editing suggestions. All text processing runs locally.
 
 Project website: [elyosten.github.io/slop-lint](https://elyosten.github.io/slop-lint/).
-The interactive browser demo is still planned.
+Use the browser demo to check text locally, with highlights and editing suggestions.
+Select Russian, English, or both. Markdown code is ignored by default.
+Text is never uploaded or stored; once loaded, the demo works offline while its tab stays open.
 
 **Development preview:** CLI and core work locally. The package is not published to npm.
 There are five starter rules per language; corpus review and the full v0.1 pack are pending.
@@ -40,10 +42,15 @@ The suggestion is to write `Рынок растёт.` The linter does not change
 | TypeScript core | Implemented |
 | CLI | Implemented |
 | GitHub Action | Planned |
-| Browser demo / Pages | Planned |
+| Browser demo / Pages | Implemented |
 | Agent skill | Planned |
 
 ## CLI
+
+To build the website locally, run `npm run build:web` and serve the generated `site/`
+directory with any static HTTP server. Edit `docs/index.html` for page content and
+`web/` for demo behavior. GitHub Actions builds and deploys the site on pushes to `main`;
+do not deploy the source `docs/` folder directly. See [Pages notes](docs/PAGES.md).
 
 ```text
 slop-lint [--lang ru|en|all] [--format text|json] [--strict] [--rules pack.yml] <paths...>
@@ -100,7 +107,7 @@ authorship checks. Starter rules have not yet been evaluated on a representative
 slop-lint отмечает шаблонные обороты в русских и английских текстах и предлагает правки.
 Проверка выполняется локально. Совпадение с правилом не доказывает, что текст написал ИИ.
 
-Сейчас готовы ядро, CLI и по пять стартовых правил. npm-пакет пока не опубликован;
+Сейчас готовы ядро, CLI, браузерное демо и по пять стартовых правил. npm-пакет пока не опубликован;
 команда `npx slop-lint` устанавливает чужой проект. Для разработки используйте команды
 из раздела Run from source. Рабочее имя нашего пакета — `@elyosten/slop-lint`.
 

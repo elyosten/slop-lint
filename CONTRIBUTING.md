@@ -1,7 +1,8 @@
 # Contributing
 
 Use Node.js >=20.19. Run `npm ci` and `npm run check` before submitting a change.
-`npm test` expects the built CLI; run `npm run build` first after changing CLI code.
+`npm test` expects the built CLI and website; run `npm run build` and `npm run build:web`
+after changing code. `npm run check` runs all builds and tests in the correct order.
 
 ## Adding rules
 

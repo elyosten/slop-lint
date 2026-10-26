@@ -11,10 +11,12 @@ unchecked items are not claims of completion.
 - [x] Markdown exclusions and disable/enable comments
 - [x] Tests including automatic bad/good examples
 - [x] CI workflow for Linux and Windows, Node 20 and 22
-- [ ] Confirm CI is green on GitHub
+- [x] Confirm initial CI is green on GitHub
 - [ ] 30 Russian and 30 English rules
 - [ ] Evaluate on 20 AI and 20 human texts; document false positives and corpus permissions
-- [ ] Web demo and GitHub Pages deployment, offline-after-load check
+- [x] Browser demo with shared core, highlights, language selection, and Markdown masking
+- [x] Built-bundle offline test with network APIs disabled
+- [ ] Deploy interactive demo via GitHub Actions and verify live UI
 - [ ] GitHub Action annotations and integration check in a sample repository
 - [ ] Agent skill and agent integration check
 - [ ] GIF, social image, complete bilingual release documentation

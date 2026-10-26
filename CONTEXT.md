@@ -10,6 +10,7 @@ The launch target is 1,000 GitHub stars in 90 days, an aspiration rather than a 
 ## Current milestone
 
 Initial foundation: plan stages 0–3 and a starter rule pack, with CI added early.
+Browser demo added next (plan stage 6), preserving the user's dark website design.
 The public repository is https://github.com/elyosten/slop-lint.
 The unscoped npm name `slop-lint` is occupied (0.8.0 on 2026-10-26).
 The provisional package name is `@elyosten/slop-lint`; the CLI binary is `slop-lint`.
@@ -37,17 +38,22 @@ of the same npm scope; verify npm login and scope ownership before a release.
   Symlinks and dependency/build directories are skipped. MDX is parsed as CommonMark;
   JSX-specific semantics are not implemented.
 - Five starter rules per language are examples, not a corpus-validated production pack.
+- Browser demo: vanilla TypeScript, shared core and Markdown masking, YAML bundled by
+  esbuild. No requests or storage for user text; offline checks work in an already-loaded tab.
+- Website HTML in docs/index.html, UI in web/, build via scripts/build-web.mjs to site/.
+  Deploy using pages.yml and GitHub Pages source = GitHub Actions. Google verification
+  file is copied verbatim. Browser input is capped at 30,000 UTF-16 units.
 
 ## Structure
 
 src/core — engine and loader; src/markdown — syntax masking; src/cli — filesystem and output.
 rules — language packs; schema — public rule schema; tests — core, Markdown, and built CLI.
-.github/workflows — CI; docs — milestones and release checks.
+.github/workflows — CI and Pages publishing; docs — website HTML and project notes;
+web — browser UI; scripts — website bundling; site — ignored deployment output.
 
 ## v0.1 acceptance criteria still to complete
 
 - 30 reviewed rules per language and a documented 20 AI / 20 human text corpus evaluation.
-- Browser demo, GitHub Pages, and offline-after-load verification.
 - GitHub Action annotations and a test-repository run.
 - Agent skill and at least one real agent integration check.
 - Bilingual documentation, GIF, social image, and launch drafts.
