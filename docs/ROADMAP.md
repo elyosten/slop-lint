@@ -16,7 +16,7 @@ unchecked items are not claims of completion.
 - [ ] Evaluate on 20 AI and 20 human texts; document false positives and corpus permissions
 - [x] Browser demo with shared core, highlights, language selection, and Markdown masking
 - [x] Built-bundle offline test with network APIs disabled
-- [ ] Deploy interactive demo via GitHub Actions and verify live UI
+- [x] Deploy interactive demo via GitHub Actions and verify live UI
 - [ ] GitHub Action annotations and integration check in a sample repository
 - [ ] Agent skill and agent integration check
 - [ ] GIF, social image, complete bilingual release documentation
@@ -30,3 +30,12 @@ The provisional scoped package `@elyosten/slop-lint` returned npm 404; ownership
 that npm scope remains unverified. Do not instruct users to install the other package.
 
 Later: PR comments, editor integrations, morphology, Kazakh and other language packs.
+
+## Browser demo evidence (2026-10-26)
+
+- [Website deployment](https://github.com/elyosten/slop-lint/actions/runs/40326144444) succeeded.
+- [CI](https://github.com/elyosten/slop-lint/actions/runs/40326144335) passed with 50 tests.
+- Verified the live bilingual example, highlighted matches, and source selection by clicking a finding.
+- Checked 375px layout locally and executed the built bundle with network APIs disabled.
+- Homepage, browser bundle, and unchanged Google verification file all returned HTTP 200.
+
